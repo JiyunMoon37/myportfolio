@@ -1,5 +1,8 @@
 ---
-title: "HW2"
+title: "LS 빅데이터 스쿨 HW2"
+author : "지윤"
+date : "2024-07-16"
+categories : [bigdata]
 jupyter: python3
 ---
 
@@ -14,17 +17,12 @@ Q1. 자동차 배기량에 따라 고속도로 연비가 다른지 알아보려�
 ```{python}
 import pandas as pd
 mpg = pd.read_csv('data/mpg.csv')
-#mpg
 
 displ4 = mpg.query('displ <= 4')
-#displ4
 displ5 = mpg.query('displ >= 5')
-#displ5
 
 mean_4 = displ4['hwy'].mean()
-#mean_4
 mean_5 = displ5['hwy'].mean()
-#mean_5
 
 max_mean_hwy = max(mean_4, mean_5)
 max_mean_hwy
@@ -38,14 +36,10 @@ Q2. 자동차 제조 회사에 따라 도시 연비가 어떻게 다른지 알�
 
 ```{python}
 audi = mpg.query('manufacturer == "audi"')
-#audi
 toyota = mpg.query('manufacturer == "toyota"')
-#toyota
 
 audi_cty = audi['cty'].mean()
-#audi_cty
 toyota_cty = toyota['cty'].mean()
-#toyota_cty
 
 max_cty = max(audi_cty, toyota_cty)
 max_cty
@@ -57,10 +51,6 @@ totota의 cty 평균이 더 크다는 것을 알 수 있다.
 Q3. 'chevrolet', 'ford', 'honda' 자동차의 고속도로 연비 평균을 알아보려고 합니다. 세 회사의 데이터를 추출한 다음 hwy 전체 평균을 구해 보세요. 
 
 ```{python}
-#chevrolet = mpg.query('manufacturer == "chevrolet"')
-#ford = mpg.query('manufacturer == "ford"')
-#honda = mpg.query('manufacturer == "honda"')
-
 three_car_hwy = mpg.query('manufacturer in ["chevrolet", "ford", "honda"]')
 three_car_hwy
 three_car_hwy['hwy'].mean()

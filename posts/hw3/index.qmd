@@ -70,12 +70,12 @@ Q2. 자동차 중에서 어떤 category(자동차 종류)가 많은지 알아보
 ```{python}
 plt.clf()
 
+df_mpg = mpg.groupby('category', as_index = False) \
+            .agg(n = ('category', 'count'))
+df_mpg
 
-
-
-
-
-
+sns.barplot(data = df_mpg, x = 'category', y = 'n', \
+            order = mpg['category'].value_counts().index)
 plt.show()
 ```
 

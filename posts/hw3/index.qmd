@@ -78,26 +78,3 @@ sns.barplot(data = df_mpg, x = 'category', y = 'n', \
             order = mpg['category'].value_counts().index)
 plt.show()
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

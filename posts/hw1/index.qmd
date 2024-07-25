@@ -20,7 +20,6 @@ df = pd.DataFrame({
 })
 
 df
-
 ```
 
 ### (p84) Q2. 앞에서 만든 데이터 프레임을 이용해 과일의 가격 평균과 판매량 평균을 구해보세요.
@@ -28,16 +27,12 @@ df
 ```{python}
 cost_avg = sum(df["가격"])/3
 cost_avg
-
 ```
 
 ```{python}
 selling_avg = sum(df["판매량"])/3
 selling_avg
-
 ```
-
----
 
 ### (p115) mpg 데이터를 이용해 분석 문제를 해결해보세요.
 
@@ -47,7 +42,6 @@ Q1. mpg 데이터를 불러와 복사본을 만드세요.
 df_mpg = pd.read_csv('data/mpg.csv')
 df_mpg_copy = df_mpg.copy()
 print(df_mpg_copy)
-
 ```
 
 Q2. 복사본 데이터를 이용해 cty는 city로, hwy는 highway로 수정하세요.
@@ -55,17 +49,13 @@ Q2. 복사본 데이터를 이용해 cty는 city로, hwy는 highway로 수정하
 ```{python}
 df_mpg_copy = df_mpg_copy.rename(columns = {'cty' : 'city'})
 df_mpg_copy = df_mpg_copy.rename(columns = {'hwy' : 'highway'})
-
 ```
 
 Q3. 데이터 일부를 출력해 변수명이 바뀌었는지 확인해 보세요. 다음과 같은 결과물이 출력되어야 합니다.
 
 ```{python}
 df_mpg_copy.head()
-
 ```
-
----
 
 ### (p130) [분석 도전]
 
@@ -85,16 +75,13 @@ Q2. poptotal(전체 인구) 변수를 total로, popasian(아시아 인구) 변�
 ```{python}
 mwt = mwt.rename(columns = {'poptotal' : 'total'})
 mwt = mwt.rename(columns = {'popasian' : 'asian'})
-
 ```
 
 Q3. total, asian 변수를 이용해 '전체 인구 대비 아시아 인구 백분율' 파생변수를 추가하고, 히스토그램을 만들어 분포를 살펴보세요.
 
 ```{python}
 mwt['asian_percentage'] = (mwt['asian'] / mwt['total']) * 100 #파생변수 추가
-
 mwt['asian_percentage'].plot.hist()
-
 ```
 
 Q4. 아시아 인구 백분율 전체 평균을 구하고, 평균을 초과하면 'large;, 그 외에는 'small'을 부여한 파생변수를 만들어 보세요.

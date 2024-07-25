@@ -1,5 +1,5 @@
 ---
-title: "LS 빅데이터 스쿨 HW2.5"
+title: "LS 빅데이터 스쿨 HW1"
 author : "지윤"
 date : "2024-07-22"
 categories : [bigdata]

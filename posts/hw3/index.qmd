@@ -10,22 +10,36 @@ jupyter: python3
 ```{python}
 #기본 코드 
 #terminal에 쳐주고 시작하기 -> pip install pandas
-#import pandas as pd 
-#from scipy.stats import norm
-#import matplotlib.pyplot as plt
+import pandas as pd 
+import numpy as np
+from scipy.stats import norm
+import matplotlib.pyplot as plt
 ```
 
-
 ```{python}
-def normal_pdf(x, loc, scale) : 
+#loc -> mu
+#scale -> sigma
+#정규분포 pdf -> norm.pdf(x, mu, sigma) 
+
+def normal_pdf(x, mu, sigma) : 
+    "정규분포의 pdf를 계산하는 함수 \
+    loc -> mu \
+    scale -> sigma"
     
+    return (1 / (sigma * np.sqrt(2 * np.pi))) * np.exp(-((x - mu) ** 2) / (2 * sigma ** 2))
+    
+mu = 3
+sigma = 2
 
+x = np.linspace(-5, 5, 100)
+pdf = normal_pdf(x, mu, sigma)
 
-#mu -> loc
-#sigma -> scale
-#정규분포 pdf -> norm.pdf(x, loc, scale) 
-
-norm.pdf(3, 3, 2)
+#그래프
+plt.plot(x, pdf, color = "blue")
+plt.xlabel('x')
+plt.ylabel('PDF')
+plt.show()
+plt.clf()
 
 ```
 
@@ -43,12 +57,16 @@ X ~ N(2, 3^2)
 #norm.rvs(loc = 2, scale = 3, size = 1) 
 a = norm.cdf(3, 2, 3)
 a
+```
 
+```{python}
 #2) P(2 < X < 5)
 b = norm.cdf(5, 2, 3)
 c = norm.cdf(2, 2, 3)
 b-c
+```
 
+```{python}
 #3) P(X < 3 or X<7)
 d = norm.cdf(3, 2, 3)
 e = norm.cdf(7, 2, 3)

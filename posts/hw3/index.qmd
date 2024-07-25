@@ -17,21 +17,19 @@ import matplotlib.pyplot as plt
 ```
 
 ```{python}
-#loc -> mu
-#scale -> sigma
 #정규분포 pdf -> norm.pdf(x, mu, sigma) 
 
 def normal_pdf(x, mu, sigma) : 
     "정규분포의 pdf를 계산하는 함수 \
-    loc -> mu \
-    scale -> sigma"
+    #loc -> mu \
+    #scale -> sigma"
     
     return (1 / (sigma * np.sqrt(2 * np.pi))) * np.exp(-((x - mu) ** 2) / (2 * sigma ** 2))
     
 mu = 3
 sigma = 2
 
-x = np.linspace(-5, 5, 100)
+x = np.linspace(-10, 10, 100)
 pdf = normal_pdf(x, mu, sigma)
 
 #그래프
@@ -80,12 +78,8 @@ d + (1-e)
 loc = 30
 scale = 2
 
-x = norm.rvs(loc, scale, size = 28)
+x = norm.pdf(0.95, loc, scale)
 x
-
-x_5 = norm.pdf(0.95)
-x_5_score = loc + x_5 * scale
-x_5_score 
 ```
 
 

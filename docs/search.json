@@ -60,7 +60,7 @@
     "href": "blog.html",
     "title": "과제 목록",
     "section": "",
-    "text": "LS 빅데이터 스쿨 HW3\n\n\n\n\n\n\nbigdata\n\n\n\n\n\n\n\n\n\nJul 25, 2024\n\n\n지윤\n\n\n\n\n\n\n\n\n\n\n\n\nLS 빅데이터 스쿨 HW2.5\n\n\n\n\n\n\nbigdata\n\n\n\n\n\n\n\n\n\nJul 22, 2024\n\n\n지윤\n\n\n\n\n\n\n\n\n\n\n\n\nLS 빅데이터 스쿨 HW2\n\n\n\n\n\n\nbigdata\n\n\n\n\n\n\n\n\n\nJul 16, 2024\n\n\n지윤\n\n\n\n\n\n\n\n\n\n\n\n\nLS 빅데이터 스쿨 HW1\n\n\n\n\n\n\nbigdata\n\n\n\n\n\n\n\n\n\nJul 15, 2024\n\n\n지윤\n\n\n\n\n\n\nNo matching items"
+    "text": "LS 빅데이터 스쿨 HW4\n\n\n\n\n\n\nbigdata\n\n\n\n\n\n\n\n\n\nJul 29, 2024\n\n\n지윤\n\n\n\n\n\n\n\n\n\n\n\n\nLS 빅데이터 스쿨 HW3\n\n\n\n\n\n\nbigdata\n\n\n\n\n\n\n\n\n\nJul 25, 2024\n\n\n지윤\n\n\n\n\n\n\n\n\n\n\n\n\nLS 빅데이터 스쿨 HW2.5\n\n\n\n\n\n\nbigdata\n\n\n\n\n\n\n\n\n\nJul 22, 2024\n\n\n지윤\n\n\n\n\n\n\n\n\n\n\n\n\nLS 빅데이터 스쿨 HW2\n\n\n\n\n\n\nbigdata\n\n\n\n\n\n\n\n\n\nJul 16, 2024\n\n\n지윤\n\n\n\n\n\n\n\n\n\n\n\n\nLS 빅데이터 스쿨 HW1\n\n\n\n\n\n\nbigdata\n\n\n\n\n\n\n\n\n\nJul 15, 2024\n\n\n지윤\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/hw3/index.html",
@@ -75,5 +75,33 @@
     "title": "LS 빅데이터 스쿨 HW2.5",
     "section": "",
     "text": "Do it! 쉽게 배우는 파이썬 데이터 분석\n\n(p204) mpg데이터와 midwest데이터를 이용해 분석 문제를 해결해 보세요.\nQ1. mpg데이터의 cty(도시 연비)와 hwy(고속도로 연비) 간에 어떤 관계가 있는지 알아보려고 합니다. x축은 cty, y축은 hwy로 된 산점도를 만들어 보세요.\n\n#!pip install pandas\n#!pip install seaborn\nimport pandas as pd \nmpg = pd.read_csv('data/mpg.csv')\n\n#x축은 cty, y축은 hwy를 나타낸 산점도 만들기 \nimport seaborn as sns\nimport matplotlib.pyplot as plt\nsns.scatterplot(data = mpg, x = 'cty', y = 'hwy')\nplt.show()\n\n\n\n\n\n\n\n\nQ2. 미국의 지역별 인구통계 정보를 담은 midwest.csv를 이용해 전체 인구와 아시아인 인구 간에 어떤 관계가 있는지 알아보려고 합니다. x축은 poptotal(전체 인구), y축은 popasian(아시아인 인구)으로 된 산점도를 만들어 보세요. 전체 인구는 50만 명 이하, 아시아인 인구는 1만 명 이하인 지역만 산점도에 표시되게 설정하세요.\n\nplt.clf()\n\nmidwest = pd.read_csv('data/midwest.csv')\n\nsns.scatterplot(data = midwest, x = 'poptotal', y = 'popasian') \\\n    .set(xlim = [0, 500000], ylim = [0, 10000])\n\nplt.show()\n\n\n\n\n\n\n\n\n\n\n(p211) mpg데이터를 이용해 분석 문제를 해결해 보세요.\nQ1. 어떤 회사에서 생산한 ‘suv’ 차종의 도시 연비가 높은지 알아보려고 합니다. ‘suv’ 차종을 대상으로 cty(도시 연비) 평균이 가장 높은 회사 다섯 곳을 막대 그래프로 표현해 보세요. 막대는 연비가 높은 순으로 정렬하세요.\n\nplt.clf()\nmpg = pd.read_csv('data/mpg.csv')\ndf_mpg = mpg.query('category == \"suv\"') \\\n            .groupby('manufacturer', as_index = False) \\\n            .agg(mean_cty = ('cty', 'mean')) \\\n            .sort_values('mean_cty', ascending = False) \\\n            .head()\ndf_mpg\n\nsns.barplot(data = df_mpg, x = 'manufacturer', y = 'mean_cty')\nplt.show()\n\n\n\n\n\n\n\n\nQ2. 자동차 중에서 어떤 category(자동차 종류)가 많은지 알아보려고 합니다. sns.barplot()을 이용해 자동차 종류별 빈도를 표현한 막대 그래프를 만들어 보세요. 막대는 빈도가 높은 순으로 정렬하세요.\n\nplt.clf()\n\ndf_mpg = mpg.groupby('category', as_index = False) \\\n            .agg(n = ('category', 'count'))\ndf_mpg\n\nsns.barplot(data = df_mpg, x = 'category', y = 'n', \\\n            order = mpg['category'].value_counts().index)\nplt.show()"
+  },
+  {
+    "objectID": "posts/hw4/index.html",
+    "href": "posts/hw4/index.html",
+    "title": "LS 빅데이터 스쿨 HW4",
+    "section": "",
+    "text": "표본 분산 계산 시 왜 n-1로 나누는지 알아보도록 하겠습니다.\n(기본코드)\n\nimport pandas as pd\nimport numpy as np\nfrom scipy.stats import norm\nfrom scipy.stats import uniform\nimport matplotlib.pyplot as plt\nimport seaborn as sns\n\n균일분포 (3, 7)에서 20개의 표본을 뽑아서 분산을 2가지 방법으로 추정해보세요.\n\n\n\nn-1로 나눈 것을 s_2, n으로 나눈 것을 k_2로 정의하고, s_2의 분포와 k_2의 분포를 그려주세요! (10000개 사용)\n\n\nnp.random.seed(20240729) #시드 설정 \nx = uniform.rvs(loc = 3, scale = 7, size = 20*10000).reshape(-1,20) \n#x_bar = x.mean()\n\n#s_2 : n-1로 나눈 표본 분산\ns_2 = x.var(axis = 1, ddof=1) \n\n#그래프 그리기 \nplt.hist(s_2, color = \"lightblue\")\nplt.show()\nplt.clf()\n\n\n\n\n\n\n\n\n&lt;Figure size 672x480 with 0 Axes&gt;\n\n\n\n#k_2 : n으로 나눈 모분산 \nk_2 = x.var(axis = 1, ddof=0) \n\n#그래프 그리기 \nplt.hist(k_2, color = \"orange\")\nplt.show()\nplt.clf()\n\n\n\n\n\n\n\n\n&lt;Figure size 672x480 with 0 Axes&gt;\n\n\n\n\n\n\n각 분포 그래프에 모분산의 위치에 녹색 막대를 그려주세요.\n\n\n#s_2 분포 그래프 \nplt.hist(s_2, color = \"lightblue\")\nplt.axvline(x.var(), color = 'green', linestyle = '--', linewidth=3)\nplt.show()\nplt.clf()\n\n\n\n\n\n\n\n\n&lt;Figure size 672x480 with 0 Axes&gt;\n\n\n\n#k_2 분포 그래프 \nplt.hist(k_2, color = \"orange\")\nplt.axvline(x.var(), color = 'green', linestyle = '--', linewidth=3)\nplt.show()\nplt.clf()\n\n\n\n\n\n\n\n\n&lt;Figure size 672x480 with 0 Axes&gt;\n\n\n\n\n\n\n결과를 살펴보고, 왜 n-1로 나눈 것을 분산을 추정하는 지표로 사용하는 것이 타당한지 써주세요!\n\n\nn-1로 나눈 표본 분산은 n으로 나눈 표본 분산보다 값이 모집단과 더 유사하게 나옵니다. 실제로 그래프로 확인했을 때, 모분산의 위치가 n으로 나눈 그래프보다 n-1로 나눈 그래프가 값의 평균에 더 가까이 위치하고 있음을 확인할 수 있습니다."
+  },
+  {
+    "objectID": "posts/hw4/index.html#번",
+    "href": "posts/hw4/index.html#번",
+    "title": "LS 빅데이터 스쿨 HW4",
+    "section": "",
+    "text": "n-1로 나눈 것을 s_2, n으로 나눈 것을 k_2로 정의하고, s_2의 분포와 k_2의 분포를 그려주세요! (10000개 사용)\n\n\nnp.random.seed(20240729) #시드 설정 \nx = uniform.rvs(loc = 3, scale = 7, size = 20*10000).reshape(-1,20) \n#x_bar = x.mean()\n\n#s_2 : n-1로 나눈 표본 분산\ns_2 = x.var(axis = 1, ddof=1) \n\n#그래프 그리기 \nplt.hist(s_2, color = \"lightblue\")\nplt.show()\nplt.clf()\n\n\n\n\n\n\n\n\n&lt;Figure size 672x480 with 0 Axes&gt;\n\n\n\n#k_2 : n으로 나눈 모분산 \nk_2 = x.var(axis = 1, ddof=0) \n\n#그래프 그리기 \nplt.hist(k_2, color = \"orange\")\nplt.show()\nplt.clf()\n\n\n\n\n\n\n\n\n&lt;Figure size 672x480 with 0 Axes&gt;"
+  },
+  {
+    "objectID": "posts/hw4/index.html#번-1",
+    "href": "posts/hw4/index.html#번-1",
+    "title": "LS 빅데이터 스쿨 HW4",
+    "section": "",
+    "text": "각 분포 그래프에 모분산의 위치에 녹색 막대를 그려주세요.\n\n\n#s_2 분포 그래프 \nplt.hist(s_2, color = \"lightblue\")\nplt.axvline(x.var(), color = 'green', linestyle = '--', linewidth=3)\nplt.show()\nplt.clf()\n\n\n\n\n\n\n\n\n&lt;Figure size 672x480 with 0 Axes&gt;\n\n\n\n#k_2 분포 그래프 \nplt.hist(k_2, color = \"orange\")\nplt.axvline(x.var(), color = 'green', linestyle = '--', linewidth=3)\nplt.show()\nplt.clf()\n\n\n\n\n\n\n\n\n&lt;Figure size 672x480 with 0 Axes&gt;"
+  },
+  {
+    "objectID": "posts/hw4/index.html#번-2",
+    "href": "posts/hw4/index.html#번-2",
+    "title": "LS 빅데이터 스쿨 HW4",
+    "section": "",
+    "text": "결과를 살펴보고, 왜 n-1로 나눈 것을 분산을 추정하는 지표로 사용하는 것이 타당한지 써주세요!\n\n\nn-1로 나눈 표본 분산은 n으로 나눈 표본 분산보다 값이 모집단과 더 유사하게 나옵니다. 실제로 그래프로 확인했을 때, 모분산의 위치가 n으로 나눈 그래프보다 n-1로 나눈 그래프가 값의 평균에 더 가까이 위치하고 있음을 확인할 수 있습니다."
   }
 ]

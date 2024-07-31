@@ -1,0 +1,104 @@
+---
+title: "LS 빅데이터 스쿨 HW5"
+author : "지윤"
+date : "2024-07-30"
+categories : [bigdata]
+jupyter: python3
+---
+Q. 챕터 9-2 설문조사 그래프에서 각 성별 95% 신뢰구간 계산후 그리기
+norm.ppf() 사용해서 그릴 것. 모분산은 표본 분산을 사용해서 추정
+위 아래 수직 막대기로 표시 
+
+### 기본코드
+```{python}
+!pip install pyreadstat
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy.stats import norm
+from scipy.stats import uniform
+```
+
+### 파일 불러오기
+```{python}
+raw_welfare = pd.read_spss('C:/Users/USER/Documents/LS빅데이터스쿨/lsbigdata-project1/data/koweps/Koweps_hpwc14_2019_beta2.sav')
+raw_welfare
+
+welfare = raw_welfare.copy()
+```
+
+### 변수명 변경하기
+```{python}
+welfare = welfare.rename(
+columns = {
+    "h14_g3" : "sex",
+    "h14_g4" : "birth",
+    "h14_g10" : "marriage_type",
+    "h14_g11" : "religion",
+    "p1402_8aq1" : "income",
+    "h14_eco9" : "code_job",
+    "h14_reg7" : "code_region"
+           }
+)
+
+welfare = welfare[["sex", "birth", "marriage_type", "religion", "income", "code_job", "code_region"]]
+```
+
+### 성별, 평균, 분산, 표준편차, 개수 구하기 
+```{python}
+welfare["sex"] = np.where(welfare["sex"]==1,
+'male', 'female')
+
+sex_income = welfare.dropna(subset = "income") \
+                    .groupby("sex", as_index = False) \
+                    .agg(mean_income = ("income", "mean"),
+                         var_income = ("income",'var'),
+                         std_income = ("income",'std'),
+                         n_income = ("income",'count'))
+sex_income
+```
+
+### 신뢰구간
+```{python}
+z = norm.ppf(0.975, loc = 0, scale = 1)
+
+sex_income["left_ci"] = sex_income["mean_income"]- z * sex_income["std_income"]/np.sqrt(sex_income["n_income"])
+
+sex_income["left_ci"]
+
+sex_income["right_ci"] = sex_income["mean_income"] + z * sex_income["std_income"]/np.sqrt(sex_income["n_income"])
+
+sex_income["right_ci"]
+
+```
+
+### 그래프 
+```{python}
+sns.barplot(data=sex_income, x = "sex", y = "mean_income", palette='Set2', hue = "sex")
+
+#x위치 
+x = np.arange(len(sex_income))
+
+#신뢰구간 그리기 
+plt.vlines(x, 
+           ymin=sex_income['left_ci'], 
+           ymax=sex_income['right_ci'], 
+           color='red', 
+           linewidth=4)
+           
+plt.show()
+plt.clf()
+```
+
+
+
+
+
+
+
+
+
+
+
+

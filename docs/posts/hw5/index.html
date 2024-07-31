@@ -208,7 +208,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Q. 챕터 9-2 설문조사 그래프에서 각 성별 95% 신뢰구간 계산후 그리기 norm.ppf() 사용해서 그릴 것. 모분산은 표본 분산을 사용해서 추정 위 아래 수직 막대기로 표시</p>
 <section id="기본코드" class="level3">
 <h3 class="anchored" data-anchor-id="기본코드">기본코드</h3>
-<div id="2ec9cb2a" class="cell" data-execution_count="1">
+<div id="549d19b0" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install pyreadstat</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -230,8 +230,8 @@ Requirement already satisfied: six&gt;=1.5 in c:\users\user\appdata\roaming\pyth
 </section>
 <section id="파일-불러오기" class="level3">
 <h3 class="anchored" data-anchor-id="파일-불러오기">파일 불러오기</h3>
-<div id="2b6cb7d3" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>raw_welfare <span class="op">=</span> pd.read_spss(<span class="st">'C:/Users/USER/Documents/LS빅데이터스쿨/myportfolio/posts/hw5/data/koweps/Koweps_hpwc14_2019_beta2.sav'</span>)</span>
+<div id="63021100" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>raw_welfare <span class="op">=</span> pd.read_spss(<span class="st">'C:/Users/USER/Documents/LS빅데이터스쿨/lsbigdata-project1/data/koweps/Koweps_hpwc14_2019_beta2.sav'</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>raw_welfare</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>welfare <span class="op">=</span> raw_welfare.copy()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -239,7 +239,7 @@ Requirement already satisfied: six&gt;=1.5 in c:\users\user\appdata\roaming\pyth
 </section>
 <section id="변수명-변경하기" class="level3">
 <h3 class="anchored" data-anchor-id="변수명-변경하기">변수명 변경하기</h3>
-<div id="83ca02e6" class="cell" data-execution_count="3">
+<div id="c9f20256" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>welfare <span class="op">=</span> welfare.rename(</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>columns <span class="op">=</span> {</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"h14_g3"</span> : <span class="st">"sex"</span>,</span>
@@ -257,7 +257,7 @@ Requirement already satisfied: six&gt;=1.5 in c:\users\user\appdata\roaming\pyth
 </section>
 <section id="성별-평균-분산-표준편차-개수-구하기" class="level3">
 <h3 class="anchored" data-anchor-id="성별-평균-분산-표준편차-개수-구하기">성별, 평균, 분산, 표준편차, 개수 구하기</h3>
-<div id="844fb7fe" class="cell" data-execution_count="4">
+<div id="44035bb7" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>welfare[<span class="st">"sex"</span>] <span class="op">=</span> np.where(welfare[<span class="st">"sex"</span>]<span class="op">==</span><span class="dv">1</span>,</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="st">'male'</span>, <span class="st">'female'</span>)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -309,7 +309,7 @@ Requirement already satisfied: six&gt;=1.5 in c:\users\user\appdata\roaming\pyth
 </section>
 <section id="신뢰구간" class="level3">
 <h3 class="anchored" data-anchor-id="신뢰구간">신뢰구간</h3>
-<div id="98d084da" class="cell" data-execution_count="5">
+<div id="f8730df3" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> norm.ppf(<span class="fl">0.975</span>, loc <span class="op">=</span> <span class="dv">0</span>, scale <span class="op">=</span> <span class="dv">1</span>)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>sex_income[<span class="st">"left_ci"</span>] <span class="op">=</span> sex_income[<span class="st">"mean_income"</span>]<span class="op">-</span> z <span class="op">*</span> sex_income[<span class="st">"std_income"</span>]<span class="op">/</span>np.sqrt(sex_income[<span class="st">"n_income"</span>])</span>
@@ -328,7 +328,7 @@ Name: right_ci, dtype: float64</code></pre>
 </section>
 <section id="그래프" class="level3">
 <h3 class="anchored" data-anchor-id="그래프">그래프</h3>
-<div id="0942a13e" class="cell" data-execution_count="6">
+<div id="35360d89" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>sns.barplot(data<span class="op">=</span>sex_income, x <span class="op">=</span> <span class="st">"sex"</span>, y <span class="op">=</span> <span class="st">"mean_income"</span>, palette<span class="op">=</span><span class="st">'Set2'</span>, hue <span class="op">=</span> <span class="st">"sex"</span>)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">#x위치 </span></span>

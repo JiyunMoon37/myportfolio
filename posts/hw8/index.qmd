@@ -147,16 +147,16 @@ print("TEMP 변수의 계수는 치료에 대한 영향력을 나타냅니다. �
 ## 문제 7: CELL 변수의 99% 오즈비에 대한 신뢰구간
 ```{python}
 # CELL 변수의 오즈비 및 신뢰구간 계산
-import statsmodels.api as sm
-
 cell_odds_ratio = np.exp(model.params['CELL'])
-cell_conf_int = np.exp(model.conf_int().loc['CELL'])
+
+# 99% 신뢰구간 계산
+conf_int = model.conf_int(alpha=0.01).loc['CELL']  # alpha=0.01로 99% 신뢰구간
+cell_conf_int = np.exp(conf_int)
 
 print(f"CELL 변수의 오즈비: {cell_odds_ratio:.4f}")
-print(f"CELL 변수의 99% 신뢰구간: ({cell_conf_int[0]:.4f}, {cell_conf_int[1]:.4f})")
+print(f"CELL 변수의 99% 신뢰구간: ({cell_conf_int[0]:.4e}, {cell_conf_int[1]:.4e})")
 
-#CELL 변수의 오즈비: 24508982903971.1094
-#CELL 변수의 99% 신뢰구간: (0.0000, 5847804413418762520297359678803551561676849915343061123072.0000)
+#CELL 변수의 99% 신뢰구간: (1.1673e-45, 5.1460e+71)
 ```
 
 
